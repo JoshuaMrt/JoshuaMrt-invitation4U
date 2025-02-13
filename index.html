@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Jewel Only</title>
+    <link rel="stylesheet" href="style.css">
+    <script
+  src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
+  integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc="
+  crossorigin="anonymous"></script>
+</head>
+<body>
+    <!-- Heart Icon -->
+    <div id="heartContainer" class="center-content" style="display: flex;">
+        <span class="heart" id="heartIcon" onclick="showInput()">❤️</span>
+    </div>
+    
+    <!-- Password Input Section -->
+    <div class="container" id="screen1">
+        <div style="display: flex; flex-direction: column; width: 100%;">
+            <div id="hintTextContainer" class="hint-text"></div>
+            <div class="input-container">
+                <input type="password" id="passwordInput" placeholder="Enter Password" class="input-pass">
+                <button class="hint-btn" id="hintButton" onclick="showHint()">3
+                    <div class="tooltip">Click for a hint</div>
+                </button>
+            </div>
+        
+            <!-- Error message will stay in place without affecting input or button -->
+            <p class="error-message" id="errorMessage">Incorrect password! Try again.</p>
+        </div>
+        <button class="btn-sbmt" onclick="checkPassword()">Enter</button>
+    </div>
+    
+
+    <!-- Modal for Hint -->
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <p id="hintText"></p>
+            <button onclick="closeModal()">Close</button>
+        </div>
+    </div>
+
+    <!-- Next Screen -->
+    <div class="container-next" id="screen2" style="display: none; color: black;">
+        <svg style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <defs>
+                <symbol id="icon-heart" viewBox="0 0 32 32">
+                    <title>heart</title>
+                    <path d="M23.6 2c-3.363 0-6.258 2.736-7.599 5.594-1.342-2.858-4.237-5.594-7.601-5.594-4.637 0-8.4 3.764-8.4 8.401 0 9.433 9.516 11.906 16.001 21.232 6.13-9.268 15.999-12.1 15.999-21.232 0-4.637-3.763-8.401-8.4-8.401z"></path>
+                </symbol>
+                <symbol id="icon-heart-broken" viewBox="0 0 32 32">
+                    <title>heart-broken</title>
+                    <path d="M23.6 2c4.637 0 8.4 3.764 8.4 8.401 0 9.132-9.87 11.964-15.999 21.232-6.485-9.326-16.001-11.799-16.001-21.232 0-4.637 3.763-8.401 8.4-8.401 1.886 0 3.625 0.86 5.025 2.12l-2.425 3.88 7 4-4 10 11-12-7-4 1.934-2.901c1.107-0.68 2.35-1.099 3.665-1.099z"></path>
+                </symbol>
+            </defs>
+        </svg>
+        <div class="container-v2">
+            <a class="envelope-wrapper js-open-envelope" href="#">
+                <div class="envelope tossing">
+                    <div class="envelope__side envelope__side--top"></div>
+                    <div class="envelope__card">
+                      <p class="enveloper__card-text">Hey Jewel, would you like to be my Valentine? <br>
+
+                    <div style="display: flex; flex-direction: row; gap: 10px; justify-content: center;">
+                        <button class="yes" onclick="showText()">Yes</button>
+                        <button id="noButton" class="no-btn">No</button>
+                    </div>
+                    
+                    <p class="enveloper__card-text" id="hiddenText" style="display: none;">Look at me and scan the QR on my sweater</p>
+                    
+                        
+
+                      </p>
+                    </div>
+                    <div class="envelope__side envelope__side--right"></div>
+                    <div class="envelope__side envelope__side--left"></div>
+                    <div class="envelope__side envelope__side--bottom"></div>
+                    <svg class="heart"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-heart"></use></svg>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <script>
+
+document.getElementById("noButton").addEventListener("click", function() {
+    this.innerText = "Click Yes";  // Change text to "Click Yes"
+    this.disabled = true;          // Disable the button after it's clicked
+});
+
+function showText() {
+    // Hide the buttons
+    document.querySelector('.yes').style.display = 'none';
+    document.querySelector('.no-btn').style.display = 'none';
+
+    // Show the text
+    document.getElementById('hiddenText').style.display = 'block';
+}
+
+
+
+        function hearts() {
+
+            const container = document.querySelector('.container');
+            const creat = document.createElement('div');
+            creat.classList.add('hearts');
+            creat.innerHTML = '💗'
+
+            creat.style.left = Math.random() * 100 + 'vw';
+            creat.style.animationDuration = Math.random() * 2 + 3 + 's';
+
+            container.appendChild(creat)
+            setTimeout(() => {
+                creat.remove();
+            }, 3000)
+        }
+        setInterval(hearts, 100);
+
+        
+
+
+        let hints = [
+    "You love this place so much.",
+    "It is known for its white sand beaches.",
+    "Its name starts with 'B' and ends with 'Y'."
+];
+let hintIndex = 0;
+
+// Function to display hint above the input and auto-hide after 3 seconds
+function showHint() {
+    if (hintIndex < hints.length) {
+        document.getElementById("hintTextContainer").innerText = "Hint: " + hints[hintIndex];
+        
+        // Make sure the hint container doesn't affect the layout
+        document.getElementById("hintTextContainer").style.display = "block";
+        
+        setTimeout(function() {
+            document.getElementById("hintTextContainer").style.display = "none";
+            hintIndex++; 
+            document.getElementById("hintButton").innerText = 3 - hintIndex;
+            if (hintIndex >= hints.length) {
+                document.getElementById("hintButton").style.display = "none"; 
+            }
+        }, 3000);
+    }
+}
+
+
+        // Function to show password input section
+        function showInput() {
+    document.getElementById("heartContainer").style.display = "none"; // Hide heart
+    let screen1 = document.getElementById("screen1");
+    screen1.style.display = "flex"; // Show password input section with flex layout
+    setTimeout(() => screen1.style.opacity = 1, 10); // Smooth transition
+}
+
+
+
+        // Close modal
+        function closeModal() {
+            document.getElementById("modal").style.display = "none";
+            hintIndex++;
+            if (hintIndex < hints.length) {
+                document.getElementById("hintButton").innerText = 3 - hintIndex;
+            } else {
+                document.getElementById("hintButton").style.display = "none";
+            }
+        }
+
+        // Password check function
+        function checkPassword() {
+    let password = document.getElementById("passwordInput").value;
+    let errorMessage = document.getElementById("errorMessage");
+    if (password.toUpperCase() === "BORACAY") {
+        document.getElementById("screen1").style.display = "none";
+        document.getElementById("screen2").style.display = "block";
+    } else {
+        errorMessage.style.display = "block"; // Show the error message
+    }
+}
+
+$('.js-open-envelope').on('click', function (event) {
+    event.preventDefault();
+    var $self = $(this);
+    
+    // Open the envelope animation
+    $self.find('.envelope').removeClass('tossing').addClass('open');
+    
+    // Update the heart icon
+    $self.find('.heart use').attr("href", "#icon-heart");
+    
+    // Show the envelope card
+    $self.find('.envelope__card').addClass('open');
+});
+
+    </script>
+</body>
+</html>

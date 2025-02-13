@@ -1,0 +1,365 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    background-color: #fae1dd;
+}
+.hearts {
+    font-size: 23px;
+    font-weight: bold;
+    position: fixed;
+    top: -1vh;
+    transform: translateY(0%);
+    left: 0;
+    animation: fall 1s ease-in infinite;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(250vh);
+    }
+}
+
+.no-btn {
+    cursor: pointer;
+    width: 35%;
+    height: 30px;
+    border: none;
+    background-color: pink;
+    border-radius: 8px;
+    color: #fa2c50;
+    font-weight: 700;
+    font-family: unset;
+}
+
+.no-btn:disabled {
+    background-color: grey; /* Disabled button looks grey */
+    color: darkgray;
+    cursor: not-allowed; /* Makes the button non-clickable */
+}
+
+.no-btn:hover:disabled {
+    content: "Click Yes"; /* Hover message */
+}
+
+.no-btn:hover {
+    content: "Click Yes"; /* Hover message when button is not disabled */
+}
+
+.yes {
+    width: 35%;
+    height: 30px;
+    border: none;
+    background-color: pink;
+    border-radius: 8px;
+    color: #fa2c50;
+    font-weight: 700;
+    font-family: unset;
+    cursor: pointer;
+}
+
+.container {
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    width: 30%;
+    display: flex;
+    flex-direction: column; /* Align items in a column */
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.6s ease-in-out;
+}
+
+.hint-btn {
+    position: absolute;
+    top: 50%;
+    right: 10px; /* Adjust right to align the button inside the container */
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px solid black;
+    background-color: white;
+    font-size: 10px;
+    font-weight: bold;
+    cursor: help;
+    text-align: center;
+}
+
+.tooltip {
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 5px;
+    background-color: black;
+    color: white;
+    font-size: 12px;
+    border-radius: 5px;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s;
+    white-space: nowrap;
+}
+
+.hint-btn:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+.heart {
+    font-size: 60px;
+    color: #ff4081;
+    cursor: pointer;
+    animation: bounce 1s infinite alternate;
+}
+.input-container {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column; /* Stack input and button vertically */
+    align-items: center; /* Center input and button horizontally */
+    margin-bottom: 20px; /* Space to avoid overlap */
+}
+
+.input-pass {
+    height: 25px;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-family: monospace;
+    font-weight: 300;
+    padding-right: 40px;
+    outline: none;
+}
+.btn-sbmt {
+    width: 20%;
+    height: 45px;
+    border: none;
+    background-color: pink;
+    border-radius: 8px;
+    color: #e73b59;
+    font-weight: 700;
+    font-family: cursive;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+@keyframes bounce {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-20px);
+    }
+}
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.error-message, .hint-text {
+    font-size: 14px;
+    color: #555;
+    margin-top: 10px;
+    transition: opacity 1s ease-out;
+}
+
+.error-message {
+    color: red;
+    font-size: 14px;
+    display: none;
+    text-align: center;
+}
+
+.hint-text {
+    color: #333;
+    display: none;
+    text-align: center;
+}
+
+.container-v2 {
+    width: 100%;
+    height: 100%;
+}
+
+.envelope-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: block;
+    transform: translate(-50%, -10%);
+}
+
+.envelope {
+    position: relative;
+    display: block;
+    width: 300px;
+    height: 200px;
+    margin: auto;
+    background-color: #C9D0D2;
+}
+
+.envelope .envelope__card {
+    position: absolute;
+    bottom: 0;
+    display: block;
+    width: 250px;
+    height: 200px;
+    margin: 0 25px;
+    background-color: #f5f6d6;
+}
+
+.envelope .enveloper__card-text {
+    padding: 10px 20px;
+    font-size: 20px;
+    margin: 0;
+    color: black;
+    font-family: 'Amatic SC', cursive;
+}
+
+.envelope .envelope__card.open {
+    -webkit-animation: cardJump .5s ease .5s forwards;
+    -o-animation: cardJump .5s ease .5s forwards;
+    animation: cardJump .5s ease .5s forwards;
+    z-index: 1;
+}
+
+.envelope .envelope__side {
+    position: absolute;
+    top: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    z-index: 2;
+}
+
+.envelope .envelope__side--left {
+    left: 0;
+    border-width: 100px 0 100px 150px;
+    border-color: transparent transparent transparent #ffffff;
+}
+
+.envelope .envelope__side--right {
+    right: 0;
+    border-width: 100px 150px 100px 0;
+    border-color: transparent #ffffff transparent transparent;
+}
+
+.envelope .envelope__side--bottom {
+    top: auto;
+    left: 0;
+    bottom: 0;
+    border-width: 0 150px 100px 150px;
+    border-color: transparent transparent #ecf0f1 transparent;
+}
+
+.envelope .envelope__side--top {
+    top: 0;
+    left: 0;
+    bottom: auto;
+    border-width: 100px 150px 0 150px;
+    border-color: #ecf0f1 transparent transparent transparent;
+    z-index: 1;
+}
+
+.envelope.open > .envelope__side--top {
+    top: -100px;
+    border-width: 0 150px 100px 150px;
+    border-color: transparent transparent #C9D0D2 transparent;
+}
+
+.heart {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    margin-top: -25%;
+    margin-left: -25px;
+    width: 50px;
+    fill: red;
+    z-index: 2;
+}
+
+.envelope:hover .heart {
+    transform: scale(1.2);
+    transition: .5s ease;
+}
+
+.envelope.open:hover .heart {
+    transform: none;
+}
+
+.tossing{
+    animation-name: tossing;
+    -webkit-animation-name: tossing;
+
+    animation-duration: .5s;
+    -webkit-animation-duration: .5s;
+
+    animation-iteration-count: infinite;
+    -webkit-animation-iteration-count: infinite;
+
+    -webkit-animation-timing-function: ease;
+    animation-timing-function: ease;
+}
+
+@keyframes tossing {
+    0% {
+        transform: rotate(-4deg);
+    }
+    50% {
+        transform: rotate(4deg);
+    }
+    100% {
+        transform: rotate(-4deg);
+    }
+}
+
+@-webkit-keyframes tossing {
+    0% {
+        -webkit-transform: rotate(-4deg);
+    }
+    50% {
+        -webkit-transform: rotate(4deg);
+    }
+    100% {
+        -webkit-transform: rotate(-4deg);
+    }
+}
+
+@keyframes cardJump {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(-200px);
+    }
+}
+
+@-webkit-keyframes cardJump {
+    from {
+        -webkit-transform: translateY(0);
+    }
+    to {
+        -webkit-transform: translateY(-200px);
+    }
+}
